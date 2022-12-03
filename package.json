@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/timo9939/assignment-10#readme",
   "dependencies": {
+    "bootstrap": "^5.2.3",
     "jest": "^29.3.1"
   }
 }

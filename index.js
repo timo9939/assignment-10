@@ -7,7 +7,7 @@ const inquirer=require('inquirer')
 inquirer.prompt([
     {
         type:'input',
-        name:'manager-name',
+        name:'managerName',
         message:"Input the manager's name"
     },
 
@@ -33,14 +33,99 @@ inquirer.prompt([
 
     {
         type:'office number',
-        name:'office-num',
+        name:'officeNum',
         message:'Input your office number'
     },
  
     {
         type:'input',
         name:'gitHub',
-        message:'Input your Github number'
+        message:'Input your Github name'
 
+    },
+
+    {
+        type:'list',
+        name:'finish',
+        message:'All Done. Do you want to exit or add another team members',
+        choices:['Exit and generate a profile','Add another team members']
     }
 ])
+.then((reaction)=>{
+  const htmlText = `
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Profile</title>
+    <link rel="stylesheet" href="profile-css.css">
+</head>
+<body>
+    <div class="member" id='member1'>
+    <ul>
+    <li>Name:${reaction.managerName}</li>
+    <li>Role:Manager</li>
+    <li>ID:${reaction.ID} </li>
+    <li>Email:${reaction.email}</li>
+    <li>Office Nmber:${reaction.officeNum} </li>
+    </ul>
+    </div>
+    
+    <div class="member" id='member2'>
+        <ul>
+        <li>Name:</li>
+        <li></li>
+        <li>ID: </li>
+        <li>Email: </li>
+        <li>Office Nmber: </li>
+        </ul>
+        </div>
+
+    <div class="member" id='member3'>
+    <ul>
+    <li>Name:</li>
+    <li></li>
+    <li>ID: </li>
+    <li>Email: </li>
+    <li>Office Nmber: </li>
+    </ul>
+    </div>
+
+    <div class="member" id='member4'>
+        <ul>
+        <li>Name:</li>
+        <li></li>
+        <li>ID: </li>
+        <li>Email: </li>
+        <li>Office Nmber: </li>
+        </ul>
+        </div>
+
+    <div class="member" id='member5'>
+    <ul>
+    <li>Name:</li>
+    <li></li>
+    <li>ID: </li>
+    <li>Email: </li>
+    <li>Office Nmber: </li>
+    </ul>
+    </div>
+
+</body>
+</html>
+
+`
+
+fs.writeFile('dist/team-profile.html',htmlText,(err)=>{
+    if(err)
+    console.log("profile.html fail to generate"+ err)
+    else{
+        console.log('profile.html generate successful')
+    }
+})
+
+})
+
