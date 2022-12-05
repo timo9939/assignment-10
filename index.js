@@ -18,13 +18,13 @@ const addManager=()=>{
 return inquirer.prompt([
     {
         type:'input',
-        name:'managerName',
+        name:'name',
         message:"Input the manager's name"
     },
 
     {
         type:'input',
-        name:'ID',
+        name:'id',
         message:'Input manager ID number'
     },
 
@@ -67,7 +67,7 @@ const addTeamMember=()=>{
 
         {
             type:'input',
-            name:'ID',
+            name:'id',
             message:"Input team member ID number"
         },
 
@@ -98,16 +98,16 @@ const addTeamMember=()=>{
         }
     ])
     .then(employeeData=>{
-        let {employName,id,email,role,gitHub,school,finish}=employeeData
+        let {employeeName,id,email,role,gitHub,school,finish}=employeeData
         let employee
 
         if(role==='Engineer'){
-            employee=new engineer(employName,id,email,school)
+            employee=new engineer(employeeName,id,email,gitHub)
             console.log(engineer)
         }
 
         else if(role==='Intern'){
-            employeeData=new intern(employName,id,email,school)
+            employeeData=new intern(employeeName,id,email,school)
             console.log(intern)
         }
 
