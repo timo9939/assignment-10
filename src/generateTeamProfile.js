@@ -40,6 +40,7 @@ const createEngineer=function(engineer){
         <li>Role:Engineer</li>
         <li>ID:${engineer.id} </li>
         <li>Email:${engineer.email}</li>
+        <li>Github:${engineer.gitHub}</li>
         </ul>
         </div>
     `
@@ -62,6 +63,7 @@ const createIntern=function(intern){
         <li>Role:Intern</li>
         <li>ID:${intern.id} </li>
         <li>Email:${intern.email}</li>
+        <li>School:${intern.school}</li>
         </ul>
         </div>
     `
@@ -83,12 +85,12 @@ generateHTML=(data)=>{
             cardArray.push(managerCard);
         }
 
-        else{console.log('employee is '+role2)}
+        // else{console.log('1.employee is '+role2)}
 
         // call engineer function
         if (role2 === 'engineer') {
             const engineerCard = createEngineer(employee);
-
+            console.log('2.The role2 is '+role2)
             cardArray.push(engineerCard);
         }
 
@@ -98,6 +100,7 @@ generateHTML=(data)=>{
 
             cardArray.push(internCard);
         }
+        else{console.log('i)The role2 is '+role2)}
         
     }
 

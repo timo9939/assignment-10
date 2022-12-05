@@ -61,7 +61,7 @@ const addTeamMember=()=>{
             type:'list',
             name:'role',
             message:'Choose the role of the team member',
-            choices:['Engineer','Intern']
+            choices:['Engineer','intern']
     
         },
 
@@ -106,8 +106,8 @@ const addTeamMember=()=>{
             console.log(engineer)
         }
 
-        else if(role==='Intern'){
-            employeeData=new intern(employeeName,id,email,school)
+        else {
+            employee=new intern(employeeName,id,email,school)
             console.log(intern)
         }
 
