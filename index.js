@@ -7,7 +7,9 @@ const manager=require('./lib/manager')
 const engineer=require('./lib/engineer')
 const intern=require('./lib/intern')
 
-const generateHTML=require('./src/generate-team-profile')
+const generateHTML=require('./src/generateTeamProfile')
+const employee = require('./lib/employee')
+// const { profile } = require('console')
 
 
 const teamMemberArr=[]
@@ -21,44 +23,23 @@ return inquirer.prompt([
     },
 
     {
-        type:'list',
-        name:'role-option',
-        message:'Choose the role of the team member',
-        choices:['Engineer','Intern']
-
-    },
-
-    {
         type:'input',
         name:'ID',
-        message:'Input your ID number'
+        message:'Input manager ID number'
     },
 
     {
         type:'input',
         name:'email',
-        message:'Input yor email address'
+        message:'Input manager email address'
     },
 
     {
         type:'office number',
         name:'officeNum',
-        message:'Input your office number'
-    },
- 
-    {
-        type:'input',
-        name:'gitHub',
-        message:'Input your Github name'
-
+        message:'Input manager office number'
     },
 
-    {
-        type:'list',
-        name:'finish',
-        message:'All Done. Do you want to exit or add another team members',
-        choices:['Exit and generate a profile','Add another team members']
-    }
 ])
 .then(inputManager=>{
   const {name,id,email,officeNum} = inputManager
@@ -73,94 +54,97 @@ const addTeamMember=()=>{
         {
             type:'input',
             name:'employeeName',
-            message:'Inpur employee name'
+            message:'Inpur team member name'
+        },
+
+        {
+            type:'list',
+            name:'role',
+            message:'Choose the role of the team member',
+            choices:['Engineer','Intern']
+    
         },
 
         {
             type:'input',
             name:'ID',
-            message:"Input employee's ID number"
+            message:"Input team member ID number"
         },
 
         {
+            type:'input',
+            name:'email',
+            message:'Input team member email'
+        },
+
+        {
+            type:'input',
+            name:'gitHub',
+            message:'Input team member Github name'
+    
+        },
+
+        {
+            type:'input',
+            name:'school',
+            message:'Input team member school name'
+        },
+
+        {
+            type:'confirm',
+            name:'finish',
+            message:'All Done. Press Y to add more member and n to create profile',
             
         }
     ])
+    .then(employeeData=>{
+        let {employName,id,email,role,gitHub,school,finish}=employeeData
+        let employee
+
+        if(role==='Engineer'){
+            employee=new engineer(employName,id,email,school)
+            console.log(engineer)
+        }
+
+        else if(role==='Intern'){
+            employeeData=new intern(employName,id,email,school)
+            console.log(intern)
+        }
+
+        teamMemberArr.push(employee)
+
+        if(finish){
+            return addTeamMember(teamMemberArr)}
+        else{
+            return teamMemberArr
+        }
+    })
+};
+
+const writeFile=data=>{
+fs.writeFile('dist/teamProfile.html',data,(err)=>{
+        if(err){
+        console.log("profile.html fail to generate "+ err)
+        return;}
+        else{
+            console.log('profile.html generate successful')
+        }
+    })
 }
-//   `
 
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-//     <meta charset="UTF-8">
-//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title>Team Profile</title>
-//     <link rel="stylesheet" href="profile-css.css">
-// </head>
-// <body>
-//     <div class="member" id='member1'>
-//     <ul>
-//     <li>Name:${reaction.managerName}</li>
-//     <li>Role:Manager</li>
-//     <li>ID:${reaction.ID} </li>
-//     <li>Email:${reaction.email}</li>
-//     <li>Office Nmber:${reaction.officeNum} </li>
-//     </ul>
-//     </div>
-    
-//     <div class="member" id='member2'>
-//         <ul>
-//         <li>Name:</li>
-//         <li></li>
-//         <li>ID: </li>
-//         <li>Email: </li>
-//         <li>Office Nmber: </li>
-//         </ul>
-//         </div>
+addManager()
+    .then(addTeamMember)
+    .then(teamMemberArr =>{
+        console.log('generateHTML(teamMemberArr) is returned')
+        return generateHTML(teamMemberArr)
+    })
 
-//     <div class="member" id='member3'>
-//     <ul>
-//     <li>Name:</li>
-//     <li></li>
-//     <li>ID: </li>
-//     <li>Email: </li>
-//     <li>Office Nmber: </li>
-//     </ul>
-//     </div>
+    .then(HTMLPage=>{
+        return writeFile(HTMLPage)
+    })
 
-//     <div class="member" id='member4'>
-//         <ul>
-//         <li>Name:</li>
-//         <li></li>
-//         <li>ID: </li>
-//         <li>Email: </li>
-//         <li>Office Nmber: </li>
-//         </ul>
-//         </div>
+    .catch(err=>{
+        console.log(err)
+    })
 
-//     <div class="member" id='member5'>
-//     <ul>
-//     <li>Name:</li>
-//     <li></li>
-//     <li>ID: </li>
-//     <li>Email: </li>
-//     <li>Office Nmber: </li>
-//     </ul>
-//     </div>
-
-// </body>
-// </html>
-
-// `
-
-// fs.writeFile('src/team-profile.html',htmlText,(err)=>{
-//     if(err)
-//     console.log("profile.html fail to generate"+ err)
-//     else{
-//         console.log('profile.html generate successful')
-//     }
-// })
-
-// })
 
