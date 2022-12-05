@@ -20,7 +20,7 @@ This is a team profile generator. By inputting the manager name,office number an
 ## License
 N/A
 ## Credit
-Yat Long Lau
+Yat Long Lau Timothy
 
 ## Example Tests
 Demonstration Video 1:
