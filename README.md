@@ -25,9 +25,9 @@ Yat Long Lau Timothy
 ## Example Tests
 Demonstration Video 1:
 <br>
-[readme-demonstration1](Video/Command-Prompt-Video.mp4)
+[Demonstration Video 1](/Video/Command-Prompt-Video.mp4)
 <br>
 Demonstration Video 2:
 <br>
-[readme-demonstration2](Video/Generated-HTML-Video.mp4)
+[Demonstration Video 2](/Video/Generated-HTML-Video.mp4)
 <br>
