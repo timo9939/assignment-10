@@ -46,7 +46,7 @@ return inquirer.prompt([
   const manager2=new manager(name,id,email,officeNum)
 
   teamMemberArr.push(manager2);
-  console.log('manager is '+manager2)})
+ })
 }
 
 const addTeamMember=()=>{
